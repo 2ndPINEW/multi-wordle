@@ -74,6 +74,7 @@ function onUpdateRoomInfo (room, callUpdate = true) {
             }, 2000)
         }
     } else if (room.isEnd()) {
+        updateChunk(room)
         infoTextElement.innerHTML = "終了"
         hide(startButtonElement)
         hide(submitButtonElement)
