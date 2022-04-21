@@ -14,7 +14,6 @@ export class Room {
         const matched = this.history[this.history.length - 1].wordle.filter(word => {
             return word.status == "match"
         })
-        console.log(this.history, matched)
         return this.history[this.history.length - 1].wordle.length == matched.length
     }
 
