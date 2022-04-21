@@ -35,17 +35,21 @@ let inputTextElement
 })()
 
 async function onSubmitClick () {
+    show(loadingElement)
     await room.postNewWord(inputTextElement.value, user.uuid)
+    inputTextElement.value = ''
     onUpdateRoomInfo(room, false)
 }
 
 async function onStartClick () {
     hide(startButtonElement)
     hide(submitButtonElement)
-    
+    show(loadingElement)
+
     inputTextElement = document.querySelector('#text-input')
     user = new User()
     await user.register(inputTextElement.value)
+    inputTextElement.value = ''
 
     room = new Room()
     await room.join(user.uuid)
@@ -59,6 +63,7 @@ async function updateRoomInfo () {
 }
 
 function onUpdateRoomInfo (room, callUpdate = true) {
+    hide(loadingElement)
     if (room.status == "created") {
         infoTextElement.innerHTML = "マッチ待機中"
         hide(startButtonElement)
@@ -68,7 +73,7 @@ function onUpdateRoomInfo (room, callUpdate = true) {
                 updateRoomInfo()
             }, 2000)
         }
-    } else if (room.status == "break") {
+    } else if (room.isEnd()) {
         infoTextElement.innerHTML = "終了"
         hide(startButtonElement)
         hide(submitButtonElement)

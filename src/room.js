@@ -9,6 +9,15 @@ export class Room {
 
     players = null
 
+    isEnd () {
+        if (!this.history || this.history.length <= 0) return
+        const matched = this.history[this.history.length - 1].wordle.filter(word => {
+            return word.status == "match"
+        })
+        console.log(this.history, matched)
+        return this.history[this.history.length - 1].wordle.length == matched.length
+    }
+
     async join (payerUuid) {
         await post('/room', { id: payerUuid }).then(v => {
             this.status = v.room.status
