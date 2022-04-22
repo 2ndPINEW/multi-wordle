@@ -17,7 +17,6 @@
     grid-auto-rows: 50px;
     gap: 32px;
     margin-top: 32px;
-    max-height: calc(100vh - 300px);
     overflow: scroll;
 }
 
